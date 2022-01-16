@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import FormularioCadastro from './components/FormularioCadastro/FormularioCadastro';
+import { Container, Typography } from '@mui/material'
+import '@fontsource/roboto'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container component="article" maxWidth="sm">
+
+      <Typography align='center' variant="h3" component="h1">
+        Formulário de Cadastro
+      </Typography>
+      <FormularioCadastro
+        aoEnviar={aoEnviarform}
+
+        validarCpf={validarCpf}
+      />
+    </Container>
   );
 }
+interface IErros {
+  valido: boolean
+  mensagem: string
+}
+interface IDadosLogin {
+  nome: string
+  sobrenome: string
+  cpf: string
+  promocoes: boolean
+  novidades: boolean
+}
+function aoEnviarform(dados: IDadosLogin): void {
+  console.log(dados)
+}
 
+function validarCpf(cpf: string): IErros {
+  if (cpf.length !== 11) {
+    return { valido: false, mensagem: 'CPF deve ter 11 dígitos' }
+  } else {
+    return { valido: true, mensagem: '' }
+  }
+}
 export default App;
